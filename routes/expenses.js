@@ -20,4 +20,15 @@ router.post('/', (req, res) => {
     });
 });
 
+
+// Delete an expense by ID
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+    db.query('DELETE FROM expenses WHERE id = ?', [id], (err, results) => {
+        if (err) throw err;
+        res.status(200).json({ message: 'Expense deleted' });
+    });
+});
+
+
 module.exports = router;
