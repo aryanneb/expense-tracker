@@ -30,5 +30,16 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+// Update an expense by ID
+router.put('/:id', (req, res) => {
+    const { id } = req.params;
+    const { description, amount, date, category } = req.body;
+    const sql = 'UPDATE expenses SET description = ?, amount = ?, date = ?, category = ? WHERE id = ?';
+    db.query(sql, [description, amount, date, category, id], (err, results) => {
+        if (err) throw err;
+        res.status(200).json({ message: 'Expense updated' });
+    });
+});
+
 
 module.exports = router;
