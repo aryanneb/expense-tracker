@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -15,22 +15,40 @@ function App() {
   const [sortConfig, setSortConfig] = useState({ key: 'date', direction: 'ascending' });
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  useEffect(() => {
-    fetchExpenses();
-  }, []);
-
-  useEffect(() => {
-    filterExpenses();
-  }, [expenses, selectedCategory]);
-
-  const fetchExpenses = async () => {
+  const fetchExpenses = useCallback(async () => {
     try {
       const response = await axios.get('/api/expenses');
       setExpenses(response.data);
     } catch (error) {
       console.error('Error fetching expenses:', error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchExpenses();
+  }, [fetchExpenses]);
+
+  const sortExpenses = useCallback((key, direction) => {
+    const sortedExpenses = [...filteredExpenses].sort((a, b) => {
+      if (a[key] < b[key]) return direction === 'ascending' ? -1 : 1;
+      if (a[key] > b[key]) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+    setFilteredExpenses(sortedExpenses);
+  }, [filteredExpenses]);
+
+  const filterExpenses = useCallback(() => {
+    if (selectedCategory === 'All') {
+      setFilteredExpenses(expenses);
+    } else {
+      const filtered = expenses.filter(expense => expense.category === selectedCategory);
+      setFilteredExpenses(filtered);
+    }
+  }, [expenses, selectedCategory]);
+
+  useEffect(() => {
+    filterExpenses();
+  }, [expenses, selectedCategory, filterExpenses]);
 
   const deleteExpense = async (id) => {
     try {
@@ -77,24 +95,6 @@ function App() {
     }
     setSortConfig({ key, direction });
     sortExpenses(key, direction);
-  };
-
-  const sortExpenses = (key, direction) => {
-    const sortedExpenses = [...filteredExpenses].sort((a, b) => {
-      if (a[key] < b[key]) return direction === 'ascending' ? -1 : 1;
-      if (a[key] > b[key]) return direction === 'ascending' ? 1 : -1;
-      return 0;
-    });
-    setFilteredExpenses(sortedExpenses);
-  };
-
-  const filterExpenses = () => {
-    if (selectedCategory === 'All') {
-      setFilteredExpenses(expenses);
-    } else {
-      const filtered = expenses.filter(expense => expense.category === selectedCategory);
-      setFilteredExpenses(filtered);
-    }
   };
 
   const uniqueCategories = Array.from(new Set(expenses.map(expense => expense.category)));
