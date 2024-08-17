@@ -1,58 +1,96 @@
 /* App.css */
 
-body {
-  background-color: #282c34;
-  color: #ffffff;
-  font-family: 'Arial', sans-serif;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap');
+
+
+:root {
+  --primary-color: #6c5ce7;
+  --secondary-color: #a29bfe;
+  --background-color: #2d3436;
+  --text-color: #ffffff;
+  --card-background: #34495e;
+  --delete-color: #d63031;
+  --delete-hover: #ff4d4d;
+  --success-color: #00b894;
+  --success-hover: #55efc4;
+}
+
+body, html {
+  font-family: 'Merriweather', serif;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   margin: 0;
   padding: 0;
+  height: 100%; 
+}
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; 
 }
 
 .App-header {
-  background-color: #20232a;
+  background-color: var(--primary-color);
   padding: 20px;
+  color: white;
 }
 
-h1, h2 {
-  font-weight: bold;
+h1,
+h2 {
+  font-weight: 700;
+  margin: 20px 0;
 }
 
 button {
-  background-color: #61dafb;
+  background-color: var(--secondary-color);
   border: none;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 10px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-  background-color: #21a1f1;
-}
-
-.expense-form input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  box-sizing: border-box;
-  border: 2px solid #61dafb;
-  border-radius: 5px;
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .expense-form {
   max-width: 400px;
-  margin: 0 auto;
-  background-color: #333;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  margin: 20px auto;
+  background-color: var(--card-background);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.expense-form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border: 2px solid var(--secondary-color);
+  border-radius: 25px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.expense-form input:focus {
+  border-color: var(--primary-color);
+  outline: none;
 }
 
 .filter-container {
@@ -62,83 +100,367 @@ button:hover {
   align-items: center;
 }
 
-.filter-container label {
-  margin-right: 10px;
-  font-weight: bold;
-}
-
 .category-filter {
-  padding: 10px;
-  border: 2px solid #61dafb;
-  border-radius: 5px;
-  background-color: #20232a;
-  color: #ffffff;
+  padding: 12px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 25px;
+  background-color: var(--background-color);
+  color: var(--text-color);
   cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: all 0.3s ease;
+  font-size: 16px;
 }
 
-.category-filter:hover {
-  background-color: #333;
-  border-color: #21a1f1;
+.category-filter:hover,
+.category-filter:focus {
+  border-color: var(--primary-color);
+  outline: none;
 }
 
 .expense-table {
-  width: 80%;
-  margin: 0 auto;
-  border-collapse: collapse;
-  background-color: #333;
-  color: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  background-color: var(--card-background);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  overflow: hidden;
+  table-layout: auto;
 }
 
-.expense-table th, .expense-table td {
+.table-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  overflow-x: auto;
+  border-radius: 15px;
+  background-color: var(--primary-color);
+}
+
+.expense-table {
+  width: 100%;
+  min-width: 600px;
+  table-layout: fixed;
+}
+
+.expense-table th,
+.expense-table td {
   padding: 15px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
 }
 
 .expense-table th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
-  background-color: #61dafb;
+  transition: all 0.3s ease;
 }
 
 .expense-table th:hover {
-  background-color: #21a1f1;
+  background-color: var(--secondary-color);
+}
+
+.expense-table tr {
+  background-color: var(--card-background);
+  transition: all 0.3s ease;
 }
 
 .expense-table tr:hover {
-  background-color: #444;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .delete-button {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  background-color: var(--delete-color);
+  padding: 8px 16px;
+  border-radius: 20px;
 }
 
 .delete-button:hover {
-  background-color: #e60000;
+  background-color: var(--delete-hover);
 }
 
 .modify-button {
-  background-color: #8a2be2;
-  border: none;
-  color: white;
-  padding: 8px 12px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  background-color: var(--success-color);
+  padding: 8px 16px;
+  border-radius: 20px;
 }
 
 .modify-button:hover {
-  background-color: #7b1fa2;
+  background-color: var(--success-hover);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .expense-table {
+    width: 95%;
+  }
+
+  .expense-table th,
+  .expense-table td {
+    padding: 10px;
+  }
+
+  .filter-container {
+    flex-direction: column;
+  }
+
+  .category-filter {
+    width: 80%;
+    margin-top: 10px;
+  }
+
+  button {
+    width: 80%;
+    margin: 10px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .expense-table {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .expense-table th,
+  .expense-table td {
+    padding: 8px;
+  }
+
+  .expense-table th {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .expense-table td {
+    font-size: 14px;
+    padding: 8px;
+    white-space: nowrap;
+  }
+
+  .expense-form input {
+    font-size: 14px;
+  }
+
+  .category-filter,
+  button {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .expense-table th,
+  .expense-table td {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .expense-table td {
+    font-size: 12px;
+  }
+
+  .expense-form input {
+    font-size: 12px;
+  }
+
+  .filter-container {
+    flex-direction: column;
+  }
+
+  .category-filter {
+    width: 100%;
+    margin-top: 5px;
+  }
+
+  button {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .expense-table th,
+  .expense-table td {
+    text-align: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .expense-table th,
+  .expense-table td {
+    font-size: 10px;
+    padding: 4px;
+  }
+
+  .expense-form input {
+    font-size: 10px;
+  }
+
+  .category-filter,
+  button {
+    font-size: 12px;
+  }
+}
+
+.popup-content {
+  background-color: var(--card-background);
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 450px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  text-align: left;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-popup {
+  background-color: var(--primary-color);
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #e75c5c; /* Purple X */
+  border-radius: 20px;
+  padding: 5px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: -10px;
+  right: -10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-popup:hover {
+  background-color: #4b4fad; /* Darker purple background */
+  color: #ffffff; /* White X on hover */
+}
+
+
+.popup-field {
+  margin-bottom: 15px;
+}
+
+.popup-field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+.popup-field input {
+  width: calc(100% - 10px);
+  padding: 8px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 5px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close-button {
+  background-color: var(--delete-hover);
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+}
+
+.close-button:hover {
+  background-color: var(--delete-color);
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.popup-arrow {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--card-background);
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.table-row {
+  position: relative;
+}
+
+.table-row:hover {
+  cursor: pointer;
+}
+
+.table-row:hover .popup-arrow {
+  display: block;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-in-out;
+}
+
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2d3436; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #6c5ce7; 
+  border-radius: 20px;
+  border: 3px solid #2d3436;
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #6c5ce7 #2d3436;
 }
