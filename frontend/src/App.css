@@ -199,6 +199,7 @@ button:hover {
 @media (max-width: 768px) {
   .expense-table {
     width: 95%;
+    min-width: 0px;
   }
 
   .expense-table th,
@@ -217,40 +218,7 @@ button:hover {
 
   button {
     width: 80%;
-    margin: 10px auto;
-  }
-}
-
-@media (max-width: 768px) {
-  .expense-table {
-    width: 100%;
-    font-size: 14px;
-  }
-
-  .expense-table th,
-  .expense-table td {
-    padding: 8px;
-  }
-
-  .expense-table th {
-    font-size: 12px;
-    padding: 8px;
-  }
-
-  .expense-table td {
-    font-size: 14px;
-    padding: 8px;
-    white-space: nowrap;
-  }
-
-  .expense-form input {
-    font-size: 14px;
-  }
-
-  .category-filter,
-  button {
-    width: 100%;
-    font-size: 14px;
+    margin: 10px 5px;
   }
 }
 
@@ -280,7 +248,7 @@ button:hover {
 
   button {
     width: 100%;
-    margin: 10px 0;
+    margin: 10px 5px;
   }
 
   .expense-table th,
