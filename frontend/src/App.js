@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import ChartComponent from "./Chart"; 
 import "./App.css";
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
     direction: "ascending",
   });
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedExpense, setSelectedExpense] = useState(null); // State for the selected expense
+  const [selectedExpense, setSelectedExpense] = useState(null);
 
   const fetchExpenses = useCallback(async () => {
     try {
@@ -327,6 +328,7 @@ function App() {
             <div className="popup-arrow"></div>
           </div>
         )}
+        <ChartComponent expenses={expenses} />
       </header>
     </div>
   );
